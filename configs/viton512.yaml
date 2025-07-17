@@ -1,4 +1,10 @@
 model:
+  inference_params:
+    hand_correction: True
+    lora:
+      path: "/home/Developer/sga/DCI-VTON-Virtual-Try-On/data/lora_output/last.safetensors"
+      alpha: 0.8
+    mask_precision: 0.95 
   base_learning_rate: 1.0e-05
   target: ldm.models.diffusion.ddpm.LatentTryOnDiffusion
   params:
@@ -80,24 +86,24 @@ data:
           target: ldm.data.cp_dataset.CPDataset
           params:
               mode: train
-              dataroot: /data/user/gjh/VITON-HD/
+              dataroot: /home/omuceng/Developer/sga/VITON-HD
               image_size: 512
       validation:
           target: ldm.data.cp_dataset.CPDataset
           params:
               mode: test
-              dataroot: /data/user/gjh/VITON-HD/
+              dataroot: /home/omuceng/Developer/sga/VITON-HD
               image_size: 512
       test:
           target: ldm.data.cp_dataset.CPDataset
           params:
               mode: test
-              dataroot: /data/user/gjh/VITON-HD/
+              dataroot: /home/omuceng/Developer/sga/VITON-HD
               image_size: 512
 
 lightning:
   trainer:
-    max_epochs: 40
+    max_epochs: 10
     num_nodes: 1
     accelerator: 'gpu'
     gpus: "0,1"
